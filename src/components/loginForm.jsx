@@ -6,10 +6,10 @@ export function LoginForm() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     function handleSubmit(event) {
-    event.preventDefault();
-    setError('');
-    setSuccess('');
-    const validateEmail = (em) => {
+        event.preventDefault();
+        setError('');
+        setSuccess('');
+        const validateEmail = (em) => {
             return String(em)
                 .toLowerCase()
                 .match(
@@ -18,28 +18,36 @@ export function LoginForm() {
         };
         function validatePassword(pw) {
 
-    return /[A-Z]/       .test(pw) &&
-           /[a-z]/       .test(pw) &&
-           /[0-9]/       .test(pw) &&
-           /[^A-Za-z0-9]/.test(pw) &&
-           pw.length > 4;
+            return /[A-Z]/.test(pw) &&
+                /[a-z]/.test(pw) &&
+                /[0-9]/.test(pw) &&
+                /[^A-Za-z0-9]/.test(pw) &&
+                pw.length > 4;
 
-};
-    
-if(email==='' && password===''){
-    setError('Email and password are required')
-}else if(email===''){
-    setError('Please enter your Email')
-}else if(password===''){
-    setError('Please enter your password')
-}else if(!validateEmail(email) || !validatePassword(password)){
-    setError('Email or password is incorrect')
-}else{
-    setSuccess('Success Login')
-   
-}
+        };
 
-}
+        if (email === '' && password === '') {
+            setError('Email and password are required')
+        } else if (email === '') {
+            setError('Please enter your Email')
+        } else if (password === '') {
+            setError('Please enter your password')
+        } else if (!validateEmail(email) || !validatePassword(password)) {
+            setError('Email or password is incorrect')
+        } else {
+            setSuccess('Success Login')
+            setTimeout(() => {
+                setSuccess('');
+                setEmail('');
+                setPassword('');
+            }
+                , 2000
+
+            )
+
+        }
+
+    }
     return (
         <>
             <form action="" method="post" onSubmit={handleSubmit}>
@@ -47,13 +55,13 @@ if(email==='' && password===''){
                 <div>
                     <input type="text" placeholder="Email" className="email-input" value={email} onChange={(event) => {
                         setEmail(event.target.value);
-                     
+
                     }} />
                 </div>
                 <div>
                     <input type="password" placeholder="Password" className="password-input" value={password} onChange={(event) => {
                         setPassword(event.target.value);
-                      
+
                     }} />
                 </div>
                 <div>
