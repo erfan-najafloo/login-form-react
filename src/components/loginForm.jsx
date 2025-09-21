@@ -9,6 +9,22 @@ export function LoginForm() {
     event.preventDefault();
     setError('');
     setSuccess('');
+    const validateEmail = (em) => {
+            return String(em)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                );
+        };
+        function validatePassword(pw) {
+
+    return /[A-Z]/       .test(pw) &&
+           /[a-z]/       .test(pw) &&
+           /[0-9]/       .test(pw) &&
+           /[^A-Za-z0-9]/.test(pw) &&
+           pw.length > 4;
+
+};
     
 if(email==='' && password===''){
     setError('Email and password are required')
@@ -16,9 +32,13 @@ if(email==='' && password===''){
     setError('Please enter your Email')
 }else if(password===''){
     setError('Please enter your password')
+}else if(!validateEmail(email) || !validatePassword(password)){
+    setError('Email or password is incorrect')
 }else{
     setSuccess('Success Login')
+   
 }
+
 }
     return (
         <>
