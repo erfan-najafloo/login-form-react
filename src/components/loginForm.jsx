@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    useEffect(()=>{
+        if(error!==''){
+            const timer = setTimeout(()=>setError(''),3000);
+            return ()=> clearTimeout(timer);
+        }
+    },[error]);
+    useEffect(()=>{
+        if (success!==''){
+            const timer = setTimeout(()=>setSuccess(''),2000);
+            return ()=> clearTimeout(timer);
+        }
+    },[success]);
     function handleSubmit(event) {
         event.preventDefault();
         setError('');
@@ -36,14 +48,7 @@ export function LoginForm() {
             setError('Email or password is incorrect')
         } else {
             setSuccess('Success Login')
-            setTimeout(() => {
-                setSuccess('');
-                setEmail('');
-                setPassword('');
-            }
-                , 2000
-
-            )
+            
 
         }
 
